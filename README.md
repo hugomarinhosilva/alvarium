@@ -138,3 +138,16 @@ AGPLv3
 Contributions are welcome.
 
 Please read AGENTS.md before contributing.
+
+---
+
+## 👨‍💻 Author
+
+**Hugo Marinho**
+
+DevOps • Cloud • Infrastructure • Systems Engineering
+
+Creator and maintainer of Alvarium.
+
+🔗 GitHub: https://github.com/hugomarinhosilva  
+🔗 LinkedIn: https://www.linkedin.com/in/hugomarinhosilva/
