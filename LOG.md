@@ -131,3 +131,22 @@ AGPLv3
 * no complex business rules yet
 * database layer separated from domain modules
 * ready for future migrations and Prisma client generation
+
+---
+
+## 2026-04-22 — Auth foundation
+
+### Authentication module prepared
+
+* `auth` module created in `apps/api`
+* login added with email and password
+* password verification prepared with bcrypt
+* JWT access token issuing added
+* global authentication guard configured
+* RBAC structure prepared with roles decorator and guard
+
+### Scope
+
+* modular authentication foundation only
+* DTO validation enabled globally
+* security-first defaults without extra business coupling
