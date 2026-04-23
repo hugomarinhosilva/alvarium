@@ -8,9 +8,8 @@ datasource db {
 }
 
 enum UserRole {
-  OWNER
   ADMIN
-  OPERATOR
+  USER
 }
 
 enum NodeStatus {
@@ -38,7 +37,7 @@ model User {
   email           String           @unique
   name            String
   passwordHash    String           @map("password_hash")
-  role            UserRole         @default(OPERATOR)
+  role            UserRole         @default(USER)
   isActive        Boolean          @default(true) @map("is_active")
   lastLoginAt     DateTime?        @map("last_login_at")
   createdAt       DateTime         @default(now()) @map("created_at")
@@ -121,4 +120,3 @@ model AuditLog {
   @@index([targetType, targetId])
   @@map("audit_logs")
 }
-

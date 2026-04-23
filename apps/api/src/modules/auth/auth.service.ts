@@ -5,6 +5,8 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UserRole } from "@prisma/client";
+import { AuditLogsService } from "../audit-logs/audit-logs.service";
+import { auditActions } from "../audit-logs/constants/audit-actions";
 import { UsersService } from "../users/users.service";
 import { LoginDto } from "./dto/login.dto";
 import { HashingService } from "./services/hashing.service";
@@ -13,12 +15,13 @@ import { AuthenticatedUser } from "./types/authenticated-user";
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly auditLogsService: AuditLogsService,
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
     private readonly hashingService: HashingService
   ) {}
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto, ipAddress?: string) {
     const user = await this.usersService.findAuthByEmail(loginDto.email);
 
     if (!user) {
@@ -39,6 +42,17 @@ export class AuthService {
     }
 
     await this.usersService.updateLastLoginAt(user.id);
+    await this.auditLogsService.logUserAction({
+      action: auditActions.authLogin,
+      actorUserId: user.id,
+      ipAddress,
+      metadata: {
+        email: user.email,
+        role: user.role
+      },
+      targetId: user.id,
+      targetType: "user"
+    });
 
     const accessToken = await this.jwtService.signAsync(
       this.buildAuthenticatedUser({
@@ -79,4 +93,3 @@ export class AuthService {
     };
   }
 }
-

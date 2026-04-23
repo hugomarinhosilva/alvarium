@@ -150,3 +150,20 @@ AGPLv3
 * modular authentication foundation only
 * DTO validation enabled globally
 * security-first defaults without extra business coupling
+
+---
+
+## 2026-04-22 — RBAC and audit basics
+
+### Authorization and auditability prepared
+
+* roles simplified to `admin` and `user`
+* role guard and admin decorator prepared for restricted actions
+* audit log service added for critical actions
+* critical base actions prepared for hosting accounts and nodes
+
+### Scope
+
+* basic RBAC foundation only
+* audit logging focused on critical operational mutations
+* ready to extend for future account and node workflows
