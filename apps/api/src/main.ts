@@ -7,6 +7,7 @@ async function bootstrap() {
   const port = Number(process.env.PORT ?? 4000);
 
   app.setGlobalPrefix("api");
+  app.enableShutdownHooks();
 
   await app.listen(port);
 }

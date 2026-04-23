@@ -114,3 +114,20 @@ AGPLv3
 * no business rules implemented
 * development foundation only
 * structure prepared for modular growth
+
+---
+
+## 2026-04-22 — API database foundation
+
+### Backend structure prepared
+
+* Prisma added to `apps/api`
+* PostgreSQL configured via `DATABASE_URL`
+* initial schema created for `users`, `plans`, `hosting_accounts`, `nodes` and `audit_logs`
+* NestJS modules prepared for future domain growth
+
+### Scope
+
+* no complex business rules yet
+* database layer separated from domain modules
+* ready for future migrations and Prisma client generation

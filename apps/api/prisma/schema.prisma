@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  OPERATOR
+}
+
+enum NodeStatus {
+  ONLINE
+  DEGRADED
+  OFFLINE
+  MAINTENANCE
+}
+
+enum HostingAccountStatus {
+  PROVISIONING
+  ACTIVE
+  SUSPENDED
+  CANCELLED
+}
+
+enum AuditLogActorType {
+  USER
+  SYSTEM
+  AGENT
+}
+
+model User {
+  id              String           @id @default(uuid()) @db.Uuid
+  email           String           @unique
+  name            String
+  passwordHash    String           @map("password_hash")
+  role            UserRole         @default(OPERATOR)
+  isActive        Boolean          @default(true) @map("is_active")
+  lastLoginAt     DateTime?        @map("last_login_at")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  hostingAccounts HostingAccount[]
+  auditLogs       AuditLog[]
+
+  @@map("users")
+}
+
+model Plan {
+  id              String           @id @default(uuid()) @db.Uuid
+  name            String
+  slug            String           @unique
+  description     String?
+  priceMonthly    Decimal          @default(0) @map("price_monthly") @db.Decimal(10, 2)
+  diskGb          Int              @default(10) @map("disk_gb")
+  bandwidthGb     Int              @default(100) @map("bandwidth_gb")
+  cpuCores        Int              @default(1) @map("cpu_cores")
+  memoryMb        Int              @default(1024) @map("memory_mb")
+  isActive        Boolean          @default(true) @map("is_active")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  hostingAccounts HostingAccount[]
+
+  @@map("plans")
+}
+
+model Node {
+  id              String           @id @default(uuid()) @db.Uuid
+  name            String
+  slug            String           @unique
+  hostname        String           @unique
+  ipv4            String?          @unique
+  location        String?
+  status          NodeStatus       @default(ONLINE)
+  isActive        Boolean          @default(true) @map("is_active")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  hostingAccounts HostingAccount[]
+
+  @@map("nodes")
+}
+
+model HostingAccount {
+  id          String               @id @default(uuid()) @db.Uuid
+  userId      String               @map("user_id") @db.Uuid
+  planId      String               @map("plan_id") @db.Uuid
+  nodeId      String?              @map("node_id") @db.Uuid
+  label       String
+  domain      String?              @unique
+  username    String               @unique
+  status      HostingAccountStatus @default(PROVISIONING)
+  isActive    Boolean              @default(true) @map("is_active")
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Restrict)
+  plan        Plan                 @relation(fields: [planId], references: [id], onDelete: Restrict)
+  node        Node?                @relation(fields: [nodeId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([planId])
+  @@index([nodeId])
+  @@map("hosting_accounts")
+}
+
+model AuditLog {
+  id          String            @id @default(uuid()) @db.Uuid
+  actorUserId String?           @map("actor_user_id") @db.Uuid
+  actorType   AuditLogActorType @default(USER) @map("actor_type")
+  action      String
+  targetType  String            @map("target_type")
+  targetId    String?           @map("target_id")
+  ipAddress   String?           @map("ip_address")
+  metadata    Json?
+  createdAt   DateTime          @default(now()) @map("created_at")
+  actorUser   User?             @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([actorUserId])
+  @@index([targetType, targetId])
+  @@map("audit_logs")
+}
+

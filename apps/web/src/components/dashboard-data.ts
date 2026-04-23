@@ -1,132 +1,144 @@
-export type Metric = {
+export type NavItem = {
   label: string;
-  value: string;
-  delta: string;
-  tone: "neutral" | "positive" | "warning";
-};
-
-export type AlertItem = {
-  id: string;
-  title: string;
-  scope: string;
-  severity: "critical" | "warning" | "info";
-  detail: string;
-  time: string;
-};
-
-export type AccountRow = {
-  id: string;
-  name: string;
-  owner: string;
-  plan: string;
-  node: string;
-  diskUsage: string;
-  status: "stable" | "watch" | "risk";
-};
-
-export type SidebarItem = {
-  label: string;
-  value: string;
+  icon:
+    | "grid"
+    | "layers"
+    | "server"
+    | "shield"
+    | "mail"
+    | "list"
+    | "spark"
+    | "users";
+  value?: string;
   active?: boolean;
 };
 
-export const sidebarItems: SidebarItem[] = [
-  { label: "Overview", value: "01", active: true },
-  { label: "Nodes", value: "08" },
-  { label: "Accounts", value: "214" },
-  { label: "Email", value: "19" },
-  { label: "Audit", value: "124" }
-] as const;
+export type TeamMember = {
+  name: string;
+  role: string;
+  initials: string;
+};
 
-export const metrics: Metric[] = [
+export type SummaryCard = {
+  label: string;
+  value: string;
+  change: string;
+  icon: "refresh" | "pulse" | "clock" | "check";
+  tone: "positive" | "warning" | "danger";
+};
+
+export type ScheduleEvent = {
+  title: string;
+  detail: string;
+  time: string;
+  attendees: string[];
+};
+
+export type WorkloadRow = {
+  label: string;
+  values: Array<0 | 1 | 2 | 3>;
+};
+
+export const navGroups: Array<{ title: string; items: NavItem[] }> = [
   {
-    label: "System health",
-    value: "98.4%",
-    delta: "+1.2% this week",
+    title: "General",
+    items: [
+      { label: "Dashboard", icon: "grid", active: true },
+      { label: "Nodes", icon: "server", value: "26" },
+      { label: "Accounts", icon: "layers", value: "214" },
+      { label: "Email", icon: "mail", value: "19" },
+      { label: "Audit", icon: "shield", value: "124" }
+    ]
+  },
+  {
+    title: "More",
+    items: [
+      { label: "To do lists", icon: "list" },
+      { label: "AI assistants", icon: "spark" }
+    ]
+  }
+];
+
+export const teamMembers: TeamMember[] = [
+  { name: "Dani Petry", role: "Infrastructure", initials: "DP" },
+  { name: "Flux Academy", role: "Partner", initials: "FA" },
+  { name: "Michelle Choi", role: "Security", initials: "MC" }
+];
+
+export const updatesOverview = {
+  value: "1,892",
+  caption: "total operational updates for this week",
+  segments: [
+    { label: "Incidents", value: "1,302", width: "72%" },
+    { label: "Warnings", value: "6%", width: "16%" },
+    { label: "Resolved", value: "4%", width: "12%" }
+  ]
+};
+
+export const summaryCards: SummaryCard[] = [
+  {
+    label: "Iterations",
+    value: "282",
+    change: "+38.12% from previous week",
+    icon: "refresh",
     tone: "positive"
   },
   {
-    label: "Critical alerts",
-    value: "03",
-    delta: "2 require action now",
+    label: "KPI",
+    value: "3.78",
+    change: "-5.6% from previous week",
+    icon: "pulse",
+    tone: "danger"
+  },
+  {
+    label: "Response",
+    value: "4.8h",
+    change: "+28.3% from previous week",
+    icon: "clock",
     tone: "warning"
   },
   {
-    label: "Hot accounts",
-    value: "12",
-    delta: "CPU and mail spikes",
-    tone: "warning"
-  },
-  {
-    label: "Email activity",
-    value: "1.28M",
-    delta: "+8.4% vs yesterday",
-    tone: "neutral"
+    label: "Finished",
+    value: "94%",
+    change: "+3.1% from previous week",
+    icon: "check",
+    tone: "positive"
   }
 ];
 
-export const alerts: AlertItem[] = [
+export const scheduleDays = [
+  { label: "Mon", day: 16 },
+  { label: "Tue", day: 17 },
+  { label: "Wed", day: 18 },
+  { label: "Thu", day: 19, active: true },
+  { label: "Fri", day: 20 },
+  { label: "Sat", day: 21 },
+  { label: "Sun", day: 22 }
+];
+
+export const scheduleEvents: ScheduleEvent[] = [
   {
-    id: "ALT-001",
-    title: "Mail queue spike detected",
-    scope: "node-fra-02",
-    severity: "critical",
-    detail: "Outgoing queue grew 340% in 15 minutes and two tenants crossed soft limits.",
-    time: "2 min ago"
+    title: "Business Analysis",
+    detail: "Prepare a list of high-pressure nodes and accounts for the ops desk.",
+    time: "09:30 AM",
+    attendees: ["HK", "MC", "DP"]
   },
   {
-    id: "ALT-002",
-    title: "Disk usage above threshold",
-    scope: "account / aurora-commerce",
-    severity: "warning",
-    detail: "Disk usage reached 86% after backup retention drift on shared storage.",
-    time: "14 min ago"
-  },
-  {
-    id: "ALT-003",
-    title: "Unusual login pattern",
-    scope: "operator / infra-team",
-    severity: "info",
-    detail: "New login source detected from a trusted token with elevated access scope.",
-    time: "33 min ago"
+    title: "Preparation of the MVP",
+    detail: "Review dashboard flow, visual hierarchy and first delivery scope.",
+    time: "07:15 AM",
+    attendees: ["HM", "FA", "DP", "MC"]
   }
 ];
 
-export const accounts: AccountRow[] = [
-  {
-    id: "AC-1001",
-    name: "aurora-commerce",
-    owner: "A. Costa",
-    plan: "Business Pro",
-    node: "node-fra-02",
-    diskUsage: "86%",
-    status: "risk"
-  },
-  {
-    id: "AC-1002",
-    name: "nova-mail",
-    owner: "Equipe Nova",
-    plan: "Mail Cluster",
-    node: "node-gru-01",
-    diskUsage: "42%",
-    status: "watch"
-  },
-  {
-    id: "AC-1003",
-    name: "delta-analytics",
-    owner: "R. Lima",
-    plan: "Enterprise",
-    node: "node-iad-03",
-    diskUsage: "27%",
-    status: "stable"
-  },
-  {
-    id: "AC-1004",
-    name: "atlas-hosting",
-    owner: "Ops Team",
-    plan: "Reseller",
-    node: "node-fra-01",
-    diskUsage: "63%",
-    status: "watch"
-  }
+export const workloadLegend = ["Low", "Medium", "High", "Fully occupied"];
+
+export const workloadRows: WorkloadRow[] = [
+  { label: "GRU", values: [1, 1, 0, 1, 1, 3, 0, 1, 1, 1, 1, 1] },
+  { label: "IAD", values: [0, 3, 1, 1, 3, 2, 2, 0, 3, 0, 1, 1] },
+  { label: "FRA", values: [0, 3, 2, 2, 3, 2, 3, 2, 3, 0, 1, 1] },
+  { label: "LHR", values: [0, 3, 0, 3, 3, 2, 0, 3, 3, 0, 1, 1] },
+  { label: "AMS", values: [1, 1, 0, 3, 2, 1, 1, 3, 3, 0, 1, 1] }
 ];
+
+export const workloadDays = ["18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"];
