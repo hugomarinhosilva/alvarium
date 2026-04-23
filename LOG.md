@@ -96,3 +96,21 @@ AGPLv3
 * future SaaS model
 * strong observability
 * automation and intelligence
+
+---
+
+## 2026-04-22 — Monorepo bootstrap
+
+### Initial structure created
+
+* root configured with `pnpm-workspace.yaml`
+* `apps/web` created with Next.js + TypeScript
+* `apps/api` created with NestJS-style modular bootstrap in TypeScript
+* `apps/agent` created with Go bootstrap
+* `packages/ui` and `packages/types` added for future shared code
+
+### Scope
+
+* no business rules implemented
+* development foundation only
+* structure prepared for modular growth

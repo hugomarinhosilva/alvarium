@@ -156,6 +156,42 @@ Please read AGENTS.md before contributing.
 
 ---
 
+## 🧱 Monorepo structure
+
+```text
+apps/
+  web/    Next.js frontend
+  api/    NestJS backend
+  agent/  Go agent
+packages/
+  ui/     shared React UI primitives
+  types/  shared TypeScript types
+```
+
+---
+
+## 🛠️ Development
+
+The repository is prepared as a `pnpm` workspace monorepo.
+
+### Root scripts
+
+```bash
+pnpm dev
+pnpm build
+pnpm typecheck
+```
+
+### Per app
+
+```bash
+pnpm dev:web
+pnpm dev:api
+pnpm dev:agent
+```
+
+---
+
 ## 👨‍💻 Author
 
 **Hugo Marinho**

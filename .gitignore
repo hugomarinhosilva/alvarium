@@ -1,0 +1,17 @@
+node_modules
+.turbo
+.next
+dist
+coverage
+.DS_Store
+*.log
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Go
+bin
+pkg
+
