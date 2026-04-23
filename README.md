@@ -2,9 +2,15 @@
 
 **Built to protect. Designed to perform.**
 
-Alvarium is a modern hosting control platform designed to simplify, secure and operate infrastructure with intelligence.
+Alvarium is a modern cloud hosting control platform designed to simplify, secure and operate infrastructure with intelligence.
 
 Inspired by the meaning of the name **Álvaro** — a guardian — Alvarium was created with a clear purpose: protect servers, data and customers while delivering a clean and modern experience.
+
+---
+
+## 🌐 Website
+
+https://alvarium.cloud
 
 ---
 
@@ -79,14 +85,23 @@ It is a new generation hosting platform focused on what actually matters:
 ### Core
 
 ```bash
-curl -fsSL https://get.alvarium.io | bash
+curl -fsSL https://get.alvarium.cloud | bash
 ```
 
 ### Agent
 
 ```bash
-curl -fsSL https://get.alvarium.io/agent | bash
+curl -fsSL https://get.alvarium.cloud/agent | bash
 ```
+
+---
+
+## 🌐 Platform Endpoints (planned)
+
+* Website: https://alvarium.cloud
+* App: https://app.alvarium.cloud
+* API: https://api.alvarium.cloud
+* Docs: https://docs.alvarium.cloud
 
 ---
 

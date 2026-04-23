@@ -2,9 +2,9 @@
 
 ## 2026-04-22 — Project start
 
-### Name decision
+### Project name
 
-Project name defined as **Alvarium**.
+Defined as **Alvarium**
 
 Reason:
 
@@ -14,22 +14,36 @@ Reason:
 
 ---
 
+### Domain decision
+
+Official domain defined as:
+
+https://alvarium.cloud
+
+Reason:
+
+* aligns with hosting and infrastructure context
+* stronger enterprise positioning
+* better than generic TLDs
+
+---
+
 ### Product direction
 
-Alvarium will NOT be a cPanel clone.
+Alvarium will NOT be a cPanel/WHM clone.
 
 Instead:
 
 * modern hosting platform
 * lightweight
-* focused on real-world usage
+* operationally focused
 
 ---
 
-### Tech stack chosen
+### Tech stack
 
-* Next.js (frontend)
-* NestJS (backend)
+* Next.js
+* NestJS
 * PostgreSQL
 * Redis
 * Go (agent)
@@ -38,34 +52,27 @@ Instead:
 
 ### Architecture
 
-Defined as:
-
 * Core (API + Web)
-* Agent (runs on nodes)
+* Agent (node layer)
 
 ---
 
 ### License
 
-AGPLv3 chosen to:
-
-* allow community contributions
-* prevent closed SaaS forks
+AGPLv3
 
 ---
 
-### UI Direction
+### UI direction
 
-* modern SaaS style
+* SaaS style
 * light + dark mode
 * minimalistic dashboard
-* focus on operational data
+* operational focus
 
 ---
 
 ### Security strategy
-
-Security must include:
 
 * JWT authentication
 * RBAC
@@ -76,18 +83,16 @@ Security must include:
 
 ### Initial focus
 
-Start with:
-
 * project structure
 * dashboard UI (mock)
 * auth system
-* basic entities (users, plans, accounts)
+* core entities
 
 ---
 
-### Future vision
+### Vision
 
-* open core + SaaS model
-* automation and intelligence
+* open-source core
+* future SaaS model
 * strong observability
-* operational alert system
+* automation and intelligence

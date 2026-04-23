@@ -4,9 +4,13 @@
 
 Alvarium
 
+## Official Domain
+
+https://alvarium.cloud
+
 ## Description
 
-Alvarium is a modern hosting control platform designed as a lightweight, secure and operationally useful alternative to legacy panels like cPanel/WHM.
+Alvarium is a modern cloud hosting control platform designed as a lightweight, secure and operationally useful alternative to legacy panels like cPanel/WHM.
 
 The system should reflect the idea of a "guardian" — protecting infrastructure and providing clarity to operators.
 
@@ -108,6 +112,16 @@ The agent must:
 * authenticate to API
 * send heartbeat
 * execute commands safely
+
+---
+
+## Installation Philosophy
+
+Core:
+https://get.alvarium.cloud
+
+Agent:
+https://get.alvarium.cloud/agent
 
 ---
 
